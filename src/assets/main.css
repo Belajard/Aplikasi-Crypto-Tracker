@@ -1,0 +1,111 @@
+/* ============================================================
+   Warna aplikasi.
+   Terang : krem hangat -> blush -> hijau sage (lembut, tidak mencolok)
+   Gelap  : hijau arang hangat dengan aksen mint pucat
+   Ganti warna cukup di bagian ini.
+   ============================================================ */
+:root {
+  --bg1: #fbf3e9;
+  --bg2: #f7ebe5;
+  --bg3: #e8f0ea;
+  --card: #fffdf9;
+  --ink: #2b2a26;
+  --mut: #6f695d;
+  --line: #eadfd0;
+  --chip: #f1e8dc;
+
+  --pri: #3f7a68;           /* hijau sage tua: tombol & chip aktif */
+  --pri-ink: #ffffff;
+  --btn: linear-gradient(135deg, #3f7a68, #2f6454);
+  --hero: linear-gradient(135deg, #f6d9bf 0%, #eadfc8 50%, #cfe4d8 100%);  /* apricot -> sage */
+
+  --up: #2c7a4b;
+  --down: #b8453f;
+  --upbg: #d8eddd;
+  --downbg: #f6dad6;
+  --star: #e0922f;
+
+  --shadow: 0 1px 2px rgba(90, 65, 30, 0.05), 0 8px 22px rgba(90, 65, 30, 0.07);
+  --avatar-bg: 50% 86%;
+  --avatar-fg: 45% 24%;
+}
+
+[data-theme="dark"] {
+  --bg1: #131917;
+  --bg2: #171e1b;
+  --bg3: #1a2220;
+  --card: #1e2724;
+  --ink: #ece9df;
+  --mut: #a3a79c;
+  --line: #2b3632;
+  --chip: #26312d;
+
+  --pri: #86c9ae;
+  --pri-ink: #0f1a15;
+  --btn: linear-gradient(135deg, #93d4b9, #74bc9f);
+  --hero: linear-gradient(135deg, #3b3326 0%, #2a3a33 100%);
+
+  --up: #7fd1a0;
+  --down: #f0958b;
+  --upbg: rgba(127, 209, 160, 0.16);
+  --downbg: rgba(240, 149, 139, 0.16);
+  --star: #f0b45f;
+
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset;
+  --avatar-bg: 30% 26%;
+  --avatar-fg: 60% 85%;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  margin: 0;
+  color: var(--ink);
+  font: 16px/1.5 "Plus Jakarta Sans Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: linear-gradient(165deg, var(--bg1), var(--bg2) 50%, var(--bg3)) fixed;
+  transition: color 0.3s;
+}
+
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--pri); outline-offset: 2px; }
+
+.app { position: relative; max-width: 480px; min-height: 100dvh; margin: 0 auto; }
+@media (min-width: 520px) { .app { border-inline: 1px solid var(--line); } }
+
+/* ---------- Bagian yang dipakai bersama ---------- */
+.icon {
+  width: 44px; height: 44px; flex: none;
+  border: 1px solid var(--line); border-radius: 14px;
+  background: var(--card); font-size: 18px;
+  transition: transform 0.15s;
+}
+.icon:active { transform: scale(0.92); }
+
+.btn {
+  min-height: 44px; padding: 0 18px; white-space: nowrap; font-weight: 600;
+  border: 1px solid var(--line); border-radius: 14px; background: var(--card);
+}
+.btn.pri { border: 0; background: var(--btn); color: var(--pri-ink); }
+
+.avatar {
+  display: grid; place-items: center; flex: none;
+  width: 44px; height: 44px; border-radius: 50%;
+  font-size: 11px; font-weight: 700; letter-spacing: -0.3px;
+  background: hsl(var(--h) var(--avatar-bg));
+  color: hsl(var(--h) var(--avatar-fg));
+}
+
+.pos { color: var(--up) !important; }
+.neg { color: var(--down) !important; }
+
+/* ---------- Animasi daftar (dipakai <TransitionGroup name="list">) ---------- */
+.list-enter-active { transition: all 0.35s ease; transition-delay: calc(var(--i) * 30ms); }
+.list-enter-from   { opacity: 0; transform: translateY(12px); }
+.list-leave-active { transition: all 0.2s; position: absolute; left: 14px; right: 14px; }
+.list-leave-to     { opacity: 0; transform: translateX(24px); }
+.list-move         { transition: transform 0.4s ease; }
+
+/* Pengguna yang mematikan animasi di perangkatnya tidak akan melihat gerakan */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
